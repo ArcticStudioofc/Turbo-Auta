@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Turbo Auta - gra wyścigowa na Androida</title>
+<meta name="description" content="Turbo Auta: darmowa gra wyścigowa na Androida. Bez reklam. Ścigaj się ze znajomymi, twórz własne mapy i ulepszaj auto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sky-top: #1976d2;
+    --sky-bottom: #0d2b5c;
+    --gold: #ffc107;
+    --red: #ff5252;
+    --green: #43a047;
+    --ink: #3e2723;
+    --card: rgba(255, 255, 255, .13);
+    --text: #ffffff;
+    --muted: #b0bec5;
+    --display: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+    --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: linear-gradient(180deg, var(--sky-top) 0, var(--sky-bottom) 900px) var(--sky-bottom);
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+
+  /* tekst z obrysem jak w grze */
+  .outline {
+    font-family: var(--display);
+    font-weight: 400;
+    -webkit-text-stroke: .16em var(--ink);
+    paint-order: stroke fill;
+    stroke-linejoin: round;
+    text-shadow: 0 .06em 0 var(--ink);
+  }
+
+  /* przyciski jak w grze: kolor + ciemniejszy spód */
+  .btn {
+    --c: var(--green);
+    --d: #1b5e20;
+    display: inline-block;
+    font-family: var(--display);
+    font-size: 1.35rem;
+    letter-spacing: .02em;
+    text-decoration: none;
+    color: #fff;
+    background: var(--c);
+    padding: .7em 1.6em;
+    border-radius: 18px;
+    box-shadow: 0 7px 0 var(--d), inset 0 14px 0 rgba(255, 255, 255, .22);
+    text-shadow: 0 2px 0 var(--ink);
+    transition: transform .08s, box-shadow .08s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 9px 0 var(--d), inset 0 14px 0 rgba(255, 255, 255, .22); }
+  .btn:active { transform: translateY(6px); box-shadow: 0 1px 0 var(--d), inset 0 14px 0 rgba(255, 255, 255, .22); }
+  .btn.gold { --c: #ffa000; --d: #7a4d00; }
+  .btn.big { font-size: 1.7rem; padding: .75em 2em; }
+
+  /* ---------- góra ---------- */
+  header.top { padding: 18px 0; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { font-family: var(--display); font-size: 1.5rem; text-decoration: none; color: var(--gold); text-shadow: 0 2px 0 var(--ink); }
+  nav a { margin-left: 18px; text-decoration: none; font-weight: 800; color: #e3f2fd; }
+  nav a:hover { color: var(--gold); }
+
+  .hero { padding: 10px 0 56px; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 34px; align-items: center; }
+  .logo { transform: rotate(-5deg); transform-origin: left center; margin: 0 0 18px; line-height: .86; }
+  .logo span { display: block; }
+  .logo .t { font-size: clamp(3.4rem, 9vw, 6rem); color: var(--gold); }
+  .logo .a { font-size: clamp(4.2rem, 11.5vw, 7.4rem); color: var(--red); margin-left: .35em; }
+  .lead { font-size: 1.25rem; max-width: 30ch; margin: 0 0 26px; font-weight: 700; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+  .cta-note { color: var(--muted); font-size: .95rem; font-weight: 700; }
+
+  .screen {
+    border-radius: 26px;
+    overflow: hidden;
+    border: 5px solid rgba(255, 255, 255, .85);
+    box-shadow: 0 10px 0 rgba(0, 0, 0, .28);
+    background: #7cb342;
+    aspect-ratio: 16 / 10;
+  }
+  .screen canvas { display: block; width: 100%; height: 100%; }
+
+  /* ---------- sekcje ---------- */
+  section { padding: 54px 0; }
+  h2 { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 5vw, 2.8rem); margin: 0 0 8px; color: var(--gold); text-shadow: 0 3px 0 var(--ink); }
+  .sub { color: var(--muted); margin: 0 0 30px; max-width: 56ch; font-weight: 700; }
+
+  .promise {
+    background: var(--green);
+    border-radius: 24px;
+    padding: 26px 30px;
+    box-shadow: 0 8px 0 #1b5e20;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 26px;
+    align-items: center;
+  }
+  .promise strong { font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 6vw, 3.2rem); line-height: 1; text-shadow: 0 3px 0 var(--ink); }
+  .promise p { margin: 0; font-weight: 800; font-size: 1.15rem; }
+
+  .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .feat { background: var(--card); border-radius: 22px; padding: 24px 26px; border: 2px solid rgba(255, 255, 255, .18); }
+  .feat:nth-child(1) { border-top: 8px solid var(--red); }
+  .feat:nth-child(2) { border-top: 8px solid #1e88e5; }
+  .feat:nth-child(3) { border-top: 8px solid #8e24aa; }
+  .feat:nth-child(4) { border-top: 8px solid var(--gold); }
+  .feat h3 { font-family: var(--display); font-weight: 400; font-size: 1.6rem; margin: 0 0 6px; }
+  .feat p { margin: 0; color: #eceff1; }
+  .feat .facts { margin: 12px 0 0; padding: 0; list-style: none; color: var(--muted); font-weight: 700; font-size: .95rem; }
+  .feat .facts li + li { margin-top: 2px; }
+
+  .worlds { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .worlds li {
+    font-weight: 800;
+    font-size: .95rem;
+    padding: .35em 1em;
+    border-radius: 999px;
+    color: #1b1b1b;
+    border: 3px solid rgba(255, 255, 255, .9);
+  }
+
+  /* ---------- pobieranie ---------- */
+  .dl {
+    background: rgba(0, 0, 0, .28);
+    border: 3px solid rgba(255, 255, 255, .85);
+    border-radius: 28px;
+    padding: 34px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 34px;
+    align-items: start;
+  }
+  .dl h3 { font-family: var(--display); font-weight: 400; font-size: 1.7rem; margin: 0 0 14px; }
+  .dl .meta { color: var(--muted); font-weight: 700; margin: 16px 0 0; font-size: .95rem; }
+  .steps { margin: 0; padding-left: 1.3em; }
+  .steps li { margin-bottom: 8px; }
+  .steps li::marker { color: var(--gold); font-weight: 800; }
+
+  footer { padding: 34px 0 50px; text-align: center; color: var(--muted); font-weight: 700; }
+  footer a { color: #fff; }
+
+  @media (max-width: 800px) {
+    .hero .wrap, .dl { grid-template-columns: 1fr; }
+    .features { grid-template-columns: 1fr; }
+    .promise { grid-template-columns: 1fr; }
+    nav a { margin-left: 12px; }
+    .dl { padding: 24px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">Turbo Auta</a>
+    <nav>
+      <a href="#gra">O grze</a>
+      <a href="#pobierz">Pobierz</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1 class="logo outline" aria-label="Turbo Auta">
+          <span class="t">TURBO</span>
+          <span class="a">AUTA</span>
+        </h1>
+        <p class="lead">Darmowa gra wyścigowa na Androida. Graj i baw się, bez reklam.</p>
+        <div class="cta-row">
+          <a class="btn big" href="#pobierz">POBIERZ APK</a>
+          <span class="cta-note">Android &middot; za darmo</span>
+        </div>
+      </div>
+      <div class="screen" aria-hidden="true"><canvas id="demo"></canvas></div>
+    </div>
+  </div>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="promise">
+        <strong class="outline">BEZ REKLAM</strong>
+        <p>Żadnych reklam, żadnych wyskakujących okienek. Wchodzisz i jedziesz.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gra">
+    <div class="wrap">
+      <h2>Co możesz robić</h2>
+      <p class="sub">Zbieraj monety, wygrywaj wyścigi i buduj własne trasy.</p>
+      <div class="features">
+        <article class="feat">
+          <h3>Ścigaj się ze znajomymi</h3>
+          <p>Stwórz grę, podaj znajomym 5-znakowy kod i jedźcie razem. Kto pierwszy wjedzie na metę, wygrywa i dostaje punkt do rankingu. Działa przez internet, nie trzeba być w jednym Wi-Fi.</p>
+          <ul class="facts">
+            <li>Lista znajomych i profile graczy</li>
+            <li>Nagrody w monetach i XP za każdy wyścig</li>
+          </ul>
+        </article>
+        <article class="feat">
+          <h3>Ulepszaj samochód</h3>
+          <p>Zarabiaj w poziomach i inwestuj w sklepie. Kupuj lepsze auta, poprawiaj silnik, skręt, opony i hamulce, malowanie wybierz po swojemu.</p>
+          <ul class="facts">
+            <li>6 aut: od Malucha do Hipera</li>
+            <li>9 ulepszeń i 12 kolorów</li>
+          </ul>
+        </article>
+        <article class="feat">
+          <h3>Twórz własne mapy</h3>
+          <p>Wbudowany edytor: narysuj drogę, ustaw drzewa, skały, jeziora, turbo i ruch uliczny. Przetestuj od razu, zapisz i jeździj. Mapy możesz wysłać do pliku i dać komuś.</p>
+          <ul class="facts">
+            <li>10 miejsc na własne poziomy</li>
+            <li>Zapis do pliku .kcmap i wczytywanie</li>
+          </ul>
+        </article>
+        <article class="feat">
+          <h3>Dużo różnych światów</h3>
+          <p>Trasy robią się coraz trudniejsze, a świat zmienia się co kilka poziomów. Są błoto, lód, lawa i turbo-strzałki. Poziom trudności ustawisz sam.</p>
+          <ul class="facts">
+            <li>Sterowanie kierownicą albo przyciskami</li>
+            <li>Poziomy: łatwy, średni, trudny i luźny</li>
+          </ul>
+        </article>
+      </div>
+
+      <h2 style="margin-top:46px; font-size:1.8rem">11 światów do przejechania</h2>
+      <ul class="worlds" id="worlds"></ul>
+    </div>
+  </section>
+
+  <section id="pobierz">
+    <div class="wrap">
+      <h2>Pobierz</h2>
+      <p class="sub">Gra jest w pliku APK. Zainstalujesz ją w minutę.</p>
+      <div class="dl">
+        <div>
+          <h3>Plik do pobrania</h3>
+          <!--
+            >>> TU PODEPNIJ APK <<<
+            Zmień TWOJ-LOGIN i TWOJE-REPO na swoje (adres repozytorium na GitHubie).
+            Plik w Releases musi nazywać się dokładnie TurboAuta.apk.
+          -->
+          <a class="btn gold big" id="apk" href="https://github.com/TWOJ-LOGIN/TWOJE-REPO/releases/latest/download/TurboAuta.apk" download>POBIERZ APK</a>
+          <p class="meta">Wersja 1.0 &middot; plik: TurboAuta.apk</p>
+        </div>
+        <div>
+          <h3>Jak zainstalować</h3>
+          <ol class="steps">
+            <li>Pobierz plik <b>TurboAuta.apk</b> na telefon.</li>
+            <li>Otwórz go z powiadomienia albo z folderu Pobrane.</li>
+            <li>Jeśli telefon zapyta, zezwól przeglądarce na instalację z tego źródła.</li>
+            <li>Dotknij <b>Zainstaluj</b> i odpal grę.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Turbo Auta &middot; bez reklam, graj i baw się</div>
+</footer>
+
+<script>
+(function () {
+  // ---- światy (kolory z gry) ----
+  var worlds = [
+    ["Zielona łąka", "#7cb342"], ["Gorąca pustynia", "#e3c26b"], ["Śnieżna zima", "#eef4f8"],
+    ["Mroczne bagna", "#5f7a45"], ["Wulkan", "#8a7d7d"], ["Jesienny las", "#a68b4b"],
+    ["Wiśniowy las", "#b8d8a0"], ["Sawanna", "#c9b458"], ["Dżungla", "#4f9a55"],
+    ["Cukrowa kraina", "#f8bbd9"], ["Księżyc", "#9e9e9e"]
+  ];
+  var ul = document.getElementById("worlds");
+  worlds.forEach(function (w) {
+    var li = document.createElement("li");
+    li.textContent = w[0];
+    li.style.background = w[1];
+    ul.appendChild(li);
+  });
+
+  // ---- animowana jazda w tle (jak demo w menu gry) ----
+  var cv = document.getElementById("demo");
+  var c = cv.getContext("2d");
+  var W = 0, H = 0, t = 0;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var trees = [];
+  for (var i = 0; i < 18; i++) {
+    var a = i * 2.4;
+    var r = i % 2 ? 0.55 + (i % 3) * 0.08 : 1.35 + (i % 4) * 0.1;
+    trees.push([Math.cos(a) * r, Math.sin(a) * r, 0.9 + (i % 3) * 0.2]);
+  }
+
+  function resize() {
+    var d = window.devicePixelRatio || 1;
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * d; cv.height = H * d;
+    c.setTransform(d, 0, 0, d, 0, 0);
+  }
+
+  function car(x, y, ang, s) {
+    c.save(); c.translate(x, y); c.scale(s, s);
+    c.save(); c.translate(0, 8); c.rotate(ang); c.fillStyle = "rgba(0,0,0,.28)";
+    c.beginPath(); c.roundRect(-36, -19, 72, 38, 8); c.fill(); c.restore();
+    for (var i = 0; i <= 8; i++) {
+      c.save(); c.translate(0, -i * 2.4); c.rotate(ang);
+      var k = 0.55 + 0.45 * i / 8;
+      var body = "rgb(" + Math.round(229 * k) + "," + Math.round(57 * k) + "," + Math.round(53 * k) + ")";
+      if (i <= 2) {
+        c.fillStyle = "#1b1b1b";
+        [-24, 18].forEach(function (wx) { [-22, 14].forEach(function (wy) {
+          c.beginPath(); c.roundRect(wx - 9, wy, 18, 8, 3); c.fill();
+        }); });
+      }
+      c.fillStyle = body;
+      if (i <= 3) { c.beginPath(); c.roundRect(-34, -17, 68, 34, 7); c.fill(); }
+      if (i >= 4) { c.beginPath(); c.roundRect(-16, -13, 26, 26, 5); c.fill(); }
+      if (i === 2) {
+        c.fillStyle = "#fff59d"; c.beginPath(); c.arc(33, -10, 3.5, 0, 7); c.arc(33, 10, 3.5, 0, 7); c.fill();
+        c.fillStyle = "#d32f2f"; c.beginPath(); c.arc(-33, -10, 3, 0, 7); c.arc(-33, 10, 3, 0, 7); c.fill();
+      }
+      if (i === 8) { c.fillStyle = "#90caf9"; c.beginPath(); c.roundRect(2, -10, 8, 20, 3); c.fill(); }
+      c.restore();
+    }
+    c.restore();
+  }
+
+  function tree(x, y, s) {
+    c.fillStyle = "rgba(0,0,0,.2)"; c.beginPath(); c.ellipse(x + 3, y + 10, 18 * s, 7 * s, 0, 0, 7); c.fill();
+    c.fillStyle = "#6d4c41"; c.fillRect(x - 4 * s, y - 14 * s, 8 * s, 22 * s);
+    for (var i = 0; i < 6; i++) {
+      var k = 0.55 + 0.45 * i / 5;
+      c.fillStyle = "rgb(" + Math.round(67 * k) + "," + Math.round(160 * k) + "," + Math.round(71 * k) + ")";
+      c.beginPath(); c.arc(x, y - 16 * s - i * 5 * s, 22 * s * (1 - i * 0.1), 0, 7); c.fill();
+    }
+  }
+
+  function frame() {
+    var cx = W / 2, cy = H / 2, R = Math.min(W, H) * 0.3;
+    var rx = R * 1.5, ry = R;
+    c.fillStyle = "#7cb342"; c.fillRect(0, 0, W, H);
+    c.fillStyle = "#74ab3c";
+    var g = 60;
+    for (var i = 0; i * g < W; i++) for (var j = 0; j * g < H; j++) if ((i + j) % 2 === 0) c.fillRect(i * g, j * g, g, g);
+
+    c.lineCap = "round";
+    c.beginPath(); c.ellipse(cx, cy, rx, ry, 0, 0, 7);
+    c.lineWidth = R * 0.5; c.strokeStyle = "#4e545a"; c.stroke();
+    c.lineWidth = R * 0.4; c.strokeStyle = "#6b7178"; c.stroke();
+    c.lineWidth = 3; c.strokeStyle = "#fff"; c.setLineDash([22, 16]); c.stroke(); c.setLineDash([]);
+
+    var items = [];
+    trees.forEach(function (q) { items.push([cy + q[1] * R, function () { tree(cx + q[0] * rx, cy + q[1] * R, q[2] * R / 120 * 1.6); }]); });
+    var a = t * 0.8;
+    var px = cx + Math.cos(a) * rx, py = cy + Math.sin(a) * ry;
+    var ang = Math.atan2(Math.cos(a) * ry, -Math.sin(a) * rx);
+    items.push([py, function () { car(px, py, ang, R / 120 * 1.5); }]);
+    items.sort(function (m, n) { return m[0] - n[0]; });
+    items.forEach(function (it) { it[1](); });
+  }
+
+  function loop(ms) {
+    t = ms / 1000;
+    frame();
+    if (!reduce) requestAnimationFrame(loop);
+  }
+
+  if (!c.roundRect) c.roundRect = function (x, y, w, h) { this.rect(x, y, w, h); };
+  resize();
+  window.addEventListener("resize", function () { resize(); frame(); });
+  t = 0.9; frame();
+  if (!reduce) requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
