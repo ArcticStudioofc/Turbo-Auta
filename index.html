@@ -78,6 +78,33 @@
   nav a { margin-left: 18px; text-decoration: none; font-weight: 800; color: #e3f2fd; }
   nav a:hover { color: var(--gold); }
 
+  /* Baner aktualizacji v1.1 na górze */
+  .badge-v11 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 193, 7, 0.18);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    text-decoration: none;
+    transition: transform 0.15s, background 0.15s;
+  }
+  .badge-v11:hover { transform: translateY(-2px); background: rgba(255, 193, 7, 0.28); }
+  .badge-v11 .tag {
+    background: var(--red);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-family: var(--display);
+    letter-spacing: 0.03em;
+  }
+
   .hero { padding: 10px 0 56px; }
   .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 34px; align-items: center; }
   .logo { transform: rotate(-5deg); transform-origin: left center; margin: 0 0 18px; line-height: .86; }
@@ -137,6 +164,28 @@
     border: 3px solid rgba(255, 255, 255, .9);
   }
 
+  /* ---------- changelog v1.1 ---------- */
+  .changelog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .changelog-card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 20px 22px;
+    border: 2px solid rgba(255, 255, 255, .16);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .changelog-card .icon {
+    font-size: 2rem;
+    line-height: 1;
+    background: rgba(255, 255, 255, .12);
+    padding: 10px 12px;
+    border-radius: 14px;
+    flex-shrink: 0;
+  }
+  .changelog-card h3 { font-family: var(--display); font-weight: 400; font-size: 1.35rem; margin: 0 0 4px; color: #fff; }
+  .changelog-card p { margin: 0; color: #eceff1; font-size: 0.98rem; }
+
   /* ---------- pobieranie ---------- */
   .dl {
     background: rgba(0, 0, 0, .28);
@@ -159,7 +208,7 @@
 
   @media (max-width: 800px) {
     .hero .wrap, .dl { grid-template-columns: 1fr; }
-    .features { grid-template-columns: 1fr; }
+    .features, .changelog-grid { grid-template-columns: 1fr; }
     .promise { grid-template-columns: 1fr; }
     nav a { margin-left: 12px; }
     .dl { padding: 24px 20px; }
@@ -177,6 +226,7 @@
     <a class="brand" href="#">Turbo Auta</a>
     <nav>
       <a href="#gra">O grze</a>
+      <a href="#aktualizacja">Wersja 1.1</a>
       <a href="#pobierz">Pobierz</a>
     </nav>
   </div>
@@ -186,6 +236,9 @@
   <div class="hero">
     <div class="wrap">
       <div>
+        <a class="badge-v11" href="#aktualizacja">
+          <span class="tag">NOWOŚĆ</span> Wersja v1.1 już jest dostępne! Dowiedz się więcej &rarr;
+        </a>
         <h1 class="logo outline" aria-label="Turbo Auta">
           <span class="t">TURBO</span>
           <span class="a">AUTA</span>
@@ -234,7 +287,7 @@
           <h3>Twórz własne mapy</h3>
           <p>Wbudowany edytor: narysuj drogę, ustaw drzewa, skały, jeziora, turbo i ruch uliczny. Przetestuj od razu, zapisz i jeździj. Mapy możesz wysłać do pliku i dać komuś.</p>
           <ul class="facts">
-            <li>10 miejsc na własne poziomy</li>
+            <li>Nieograniczona liczba własnych poziomów</li>
             <li>Zapis do pliku .kcmap i wczytywanie</li>
           </ul>
         </article>
@@ -253,6 +306,48 @@
     </div>
   </section>
 
+  <!-- ---------- NOWA SEKCJA: AKTUALIZACJA 1.1 ---------- -->
+  <section id="aktualizacja">
+    <div class="wrap">
+      <h2>Co nowego w wersji 1.1?</h2>
+      <p class="sub">Sprawdź najnowsze funkcje dodane w aktualizacji!</p>
+
+      <div class="changelog-grid">
+        <div class="changelog-card">
+          <div class="icon">🌐</div>
+          <div>
+            <h3>Galeria Online</h3>
+            <p>Dziel się swoimi autorskimi trasami z całą społecznością, pobieraj mapy stworzone przez innych graczy i oceniaj ich prace!</p>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">🏎️</div>
+          <div>
+            <h3>Otwarte pokoje Multiplayer</h3>
+            <p>Chcesz pograć z kimś w sieci, ale nie masz akurat kodów? Twórz publiczne pokoje lub dołączaj do istniejących jednym kliknięciem.</p>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">♾️</div>
+          <div>
+            <h3>Nieskończona lista poziomów</h3>
+            <p>Usunięto dawny limit 10 slotów. Nowy dynamiczny system pozwala tworzyć i zapisywać tyle map, ile pomieści pamięć Twojego telefonu.</p>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">🛡️</div>
+          <div>
+            <h3>System antykradzieżowy map</h3>
+            <p>Wbudowane zabezpieczenie w plikach map chroni Twoje autorstwo – nikt nie opublikuje Twojego projektu jako własnego.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="pobierz">
     <div class="wrap">
       <h2>Pobierz</h2>
@@ -260,11 +355,6 @@
       <div class="dl">
         <div>
           <h3>Plik do pobrania</h3>
-          <!--
-            >>> TU PODEPNIJ APK <<<
-            Zmień TWOJ-LOGIN i TWOJE-REPO na swoje (adres repozytorium na GitHubie).
-            Plik w Releases musi nazywać się dokładnie TurboAuta.apk.
-          -->
           <a class="btn gold big" id="apk" href="https://github.com/Pokrzywwaa/Turbo-Auta/releases/latest/download/release.apk" download>POBIERZ APK</a>
           <p class="meta">Wersja 1.1 &middot; plik: release.apk</p>
         </div>
