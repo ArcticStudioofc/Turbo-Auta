@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Turbo Auta - gra wyścigowa na Androida</title>
-<meta name="description" content="Turbo Auta: darmowa gra wyścigowa na Androida. Bez reklam. Ścigaj się ze znajomymi, twórz własne mapy i ulepszaj auto.">
+<title>Turbo Auta - Environment Update (Wersja 1.2)</title>
+<meta name="description" content="Turbo Auta 1.2 Environment Update! Dłuższe trasy do 1500m, 4 nowe biomy, barierki, beczki, plamy oleju, rankingi, większe limity w kreatorze i tryb Multiplayer. Pobierz za darmo bez reklam!">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
     --gold: #ffc107;
     --red: #ff5252;
     --green: #43a047;
+    --neon: #e040fb;
     --ink: #3e2723;
     --card: rgba(255, 255, 255, .13);
     --text: #ffffff;
@@ -78,39 +79,49 @@
   nav a { margin-left: 18px; text-decoration: none; font-weight: 800; color: #e3f2fd; }
   nav a:hover { color: var(--gold); }
 
-  /* Baner aktualizacji v1.1 na górze */
-  .badge-v11 {
+  /* Baner aktualizacji v1.2 na górze */
+  .badge-v12 {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 193, 7, 0.18);
-    border: 2px solid var(--gold);
-    color: var(--gold);
+    background: rgba(224, 64, 251, 0.22);
+    border: 2px solid var(--neon);
+    color: #f3e5f5;
     padding: 6px 16px;
     border-radius: 999px;
     font-weight: 800;
     font-size: 0.95rem;
     margin-bottom: 18px;
     text-decoration: none;
+    box-shadow: 0 0 14px rgba(224, 64, 251, 0.4);
     transition: transform 0.15s, background 0.15s;
   }
-  .badge-v11:hover { transform: translateY(-2px); background: rgba(255, 193, 7, 0.28); }
-  .badge-v11 .tag {
-    background: var(--red);
+  .badge-v12:hover { transform: translateY(-2px); background: rgba(224, 64, 251, 0.35); }
+  .badge-v12 .tag {
+    background: var(--neon);
     color: #fff;
     padding: 2px 8px;
     border-radius: 999px;
     font-size: 0.8rem;
     font-family: var(--display);
     letter-spacing: 0.03em;
+    text-shadow: 0 1px 0 var(--ink);
   }
 
   .hero { padding: 10px 0 56px; }
   .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 34px; align-items: center; }
-  .logo { transform: rotate(-5deg); transform-origin: left center; margin: 0 0 18px; line-height: .86; }
+  .logo { transform: rotate(-5deg); transform-origin: left center; margin: 0 0 6px; line-height: .86; }
   .logo span { display: block; }
   .logo .t { font-size: clamp(3.4rem, 9vw, 6rem); color: var(--gold); }
   .logo .a { font-size: clamp(4.2rem, 11.5vw, 7.4rem); color: var(--red); margin-left: .35em; }
+  .update-subtitle {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    color: var(--neon);
+    text-shadow: 0 2px 0 var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
   .lead { font-size: 1.25rem; max-width: 30ch; margin: 0 0 26px; font-weight: 700; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
   .cta-note { color: var(--muted); font-size: .95rem; font-weight: 700; }
@@ -164,7 +175,7 @@
     border: 3px solid rgba(255, 255, 255, .9);
   }
 
-  /* ---------- changelog v1.1 ---------- */
+  /* ---------- changelog v1.2 ---------- */
   .changelog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .changelog-card {
     background: var(--card);
@@ -184,7 +195,9 @@
     flex-shrink: 0;
   }
   .changelog-card h3 { font-family: var(--display); font-weight: 400; font-size: 1.35rem; margin: 0 0 4px; color: #fff; }
-  .changelog-card p { margin: 0; color: #eceff1; font-size: 0.98rem; }
+  .changelog-card p { margin: 0; color: #eceff1; font-size: 0.95rem; }
+  .changelog-card ul { margin: 6px 0 0; padding-left: 1.2em; color: #cfd8dc; font-size: 0.92rem; }
+  .changelog-card ul li { margin-bottom: 2px; }
 
   /* ---------- pobieranie ---------- */
   .dl {
@@ -226,7 +239,7 @@
     <a class="brand" href="#">Turbo Auta</a>
     <nav>
       <a href="#gra">O grze</a>
-      <a href="#aktualizacja">Wersja 1.1</a>
+      <a href="#aktualizacja">Wersja 1.2</a>
       <a href="#pobierz">Pobierz</a>
     </nav>
   </div>
@@ -236,16 +249,17 @@
   <div class="hero">
     <div class="wrap">
       <div>
-        <a class="badge-v11" href="#aktualizacja">
-          <span class="tag">NOWOŚĆ</span> Wersja v1.1 już jest dostępne! Dowiedz się więcej &rarr;
+        <a class="badge-v12" href="#aktualizacja">
+          <span class="tag">v1.2</span> Environment Update jest już dostępna! Dowiedz się więcej &rarr;
         </a>
         <h1 class="logo outline" aria-label="Turbo Auta">
           <span class="t">TURBO</span>
           <span class="a">AUTA</span>
         </h1>
+        <div class="update-subtitle">ENVIRONMENT UPDATE</div>
         <p class="lead">Darmowa gra wyścigowa na Androida. Graj i baw się, bez reklam.</p>
         <div class="cta-row">
-          <a class="btn big" href="#pobierz">POBIERZ APK</a>
+          <a class="btn big" href="#pobierz">POBIERZ APK v1.2</a>
           <span class="cta-note">Android &middot; za darmo</span>
         </div>
       </div>
@@ -269,10 +283,10 @@
       <div class="features">
         <article class="feat">
           <h3>Ścigaj się ze znajomymi</h3>
-          <p>Stwórz grę, podaj znajomym 5-znakowy kod i jedźcie razem. Kto pierwszy wjedzie na metę, wygrywa i dostaje punkt do rankingu. Działa przez internet, nie trzeba być w jednym Wi-Fi.</p>
+          <p>Stwórz pokój lub dołącz do wyścigu w sieci! Host w lobby wybiera konkretny biom rozgrywki zamiast dawnego numeru poziomu, a trasa generuje się dynamicznie.</p>
           <ul class="facts">
-            <li>Lista znajomych i profile graczy</li>
-            <li>Nagrody w monetach i XP za każdy wyścig</li>
+            <li>Czytelniejszy interfejs wyboru biomów w Multiplayerze</li>
+            <li>Nowy podgląd rankingów wygranych i monet</li>
           </ul>
         </article>
         <article class="feat">
@@ -280,68 +294,144 @@
           <p>Zarabiaj w poziomach i inwestuj w sklepie. Kupuj lepsze auta, poprawiaj silnik, skręt, opony i hamulce, malowanie wybierz po swojemu.</p>
           <ul class="facts">
             <li>6 aut: od Malucha do Hipera</li>
-            <li>9 ulepszeń i 12 kolorów</li>
+            <li>Nowe zbalansowane mnożniki zarobków na trasach</li>
           </ul>
         </article>
         <article class="feat">
           <h3>Twórz własne mapy</h3>
-          <p>Wbudowany edytor: narysuj drogę, ustaw drzewa, skały, jeziora, turbo i ruch uliczny. Przetestuj od razu, zapisz i jeździj. Mapy możesz wysłać do pliku i dać komuś.</p>
+          <p>Powiększone limity w kreatorze: aż 120 punktów drogi, 300 drzew i 250 monet! Dodawaj barierki, toczące się beczki oraz plamy oleju i udostępniaj mapy w Galerii Online.</p>
           <ul class="facts">
-            <li>Nieograniczona liczba własnych poziomów</li>
-            <li>Zapis do pliku .kcmap i wczytywanie</li>
+            <li>Możliwość tworzenia znacznie dłuższych tras autorskich</li>
+            <li>Bezpieczny zapis do pliku .kcmap z ochroną autorska</li>
           </ul>
         </article>
         <article class="feat">
-          <h3>Dużo różnych światów</h3>
-          <p>Trasy robią się coraz trudniejsze, a świat zmienia się co kilka poziomów. Są błoto, lód, lawa i turbo-strzałki. Poziom trudności ustawisz sam.</p>
+          <h3>Odkrywaj nowe środowiska</h3>
+          <p>Aż 15 unikalnych biomów! Trasom znacząco zwiększono długość (nawet do 1500 m na trudnym poziomie) i dodano wyzwania w postaci szykan z barierkami i plam oleju.</p>
           <ul class="facts">
-            <li>Sterowanie kierownicą albo przyciskami</li>
-            <li>Poziomy: łatwy, średni, trudny i luźny</li>
+            <li>Nastrojowe efekty cząsteczkowe na nowych biomach</li>
+            <li>Poziomy: Łatwy, Średni, Trudny oraz rekreacyjny Luźny</li>
           </ul>
         </article>
       </div>
 
-      <h2 style="margin-top:46px; font-size:1.8rem">11 światów do przejechania</h2>
+      <h2 style="margin-top:46px; font-size:1.8rem">15 światów do przejechania</h2>
       <ul class="worlds" id="worlds"></ul>
     </div>
   </section>
 
-  <!-- ---------- NOWA SEKCJA: AKTUALIZACJA 1.1 ---------- -->
+  <!-- ---------- NOWA SEKCJA: AKTUALIZACJA 1.2 ---------- -->
   <section id="aktualizacja">
     <div class="wrap">
-      <h2>Co nowego w wersji 1.1?</h2>
-      <p class="sub">Sprawdź najnowsze funkcje dodane w aktualizacji!</p>
+      <h2>Co nowego w wersji 1.2 - Environment Update?</h2>
+      <p class="sub">Oto pełna lista zmian i nowości wprowadzonych w najnowszej aktualizacji!</p>
 
       <div class="changelog-grid">
         <div class="changelog-card">
+          <div class="icon">📐</div>
+          <div>
+            <h3>Dłuższe Trasy</h3>
+            <p>Poziomy w kampanii zostały znacznie wydłużone:</p>
+            <ul>
+              <li>Poziomy 1–3: 100 m, 125 m oraz 150 m (Poziom 4 jest przejściowy).</li>
+              <li>Od poziomu 5 trasy rosną aż do maksymalnych długości:
+                <ul>
+                  <li><b>Łatwy:</b> min. 350 m &rarr; max 900 m</li>
+                  <li><b>Średni:</b> min. 400 m &rarr; max 1200 m</li>
+                  <li><b>Trudny:</b> min. 450 m &rarr; max 1500 m</li>
+                  <li><b>Luźny:</b> min. 280 m &rarr; max 800 m</li>
+                </ul>
+              </li>
+              <li>Przeszkód jest proporcjonalnie więcej na dłuższych trasach.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">🌴</div>
+          <div>
+            <h3>4 Nowe Biomy</h3>
+            <p>Do gry zawitały cztery nowe, wyjątkowe środowiska:</p>
+            <ul>
+              <li><b>Tropikalna Plaża</b> – złoty piasek, palmy i turkusowa woda.</li>
+              <li><b>Czerwony Kanion</b> – rdzawa pustynia z wysokimi skałami.</li>
+              <li><b>Neonowa Noc</b> – fioletowo-błękitne, klimatyczne podświetlenie.</li>
+              <li><b>Grzybowy Las</b> – baśniowy biom z gigantycznymi grzybami.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">🚧</div>
+          <div>
+            <h3>Nowe Przeszkody na Drodze</h3>
+            <p>Przetestuj swoje umiejętności w wyijaniu nowych przeszkód:</p>
+            <ul>
+              <li><b>Barierki w szykanach:</b> pojawiają się na zakrętach od poziomu 6.</li>
+              <li><b>Toczące się beczki:</b> dynamiczne przeszkody przecinające drogę od poziomu 8.</li>
+              <li><b>Plamy oleju:</b> występują od poziomu 7 – są niezwykle śliskie i drastycznie utrudniają skręcanie.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">💰</div>
+          <div>
+            <h3>Zmiany w Zarobkach</h3>
+            <p>Nowy zbalansowany system nagród gotówkowych za ukończenie trasy:</p>
+            <ul>
+              <li>Mnożniki wygranej: <b>0.45</b> (Łatwy), <b>0.65</b> (Średni), <b>1.0</b> (Trudny).</li>
+              <li>Mnożnik dla poziomu <b>Luźny wynosi 0.0</b> – służy on do bezstresowej jazdy.</li>
+              <li>Na poziomie Luźnym nie generują się już monety na trasie.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">🏆</div>
+          <div>
+            <h3>Nowa Zakładka: Ranking</h3>
+            <p>W menu głównym dodano dedykowaną zakładkę statystyk i osiągnięć. Śledzi ona:</p>
+            <ul>
+              <li>Łączną liczbę zebranych monet,</li>
+              <li>Ilość przejechanych map,</li>
+              <li>Liczbę wygranych wyścigów w trybie Multiplayer.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="changelog-card">
+          <div class="icon">🛠️</div>
+          <div>
+            <h3>Kreator Poziomów</h3>
+            <p>Podniesiono limity obiektów, umożliwiając tworzenie gigantycznych tras:</p>
+            <ul>
+              <li><b>Droga:</b> do 120 punktów (dawniej znacznie mniej),</li>
+              <li><b>Drzewa / Dekoracje:</b> do 300 obiektów,</li>
+              <li><b>Monety:</b> do 250 sztuk na mapie.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="changelog-card">
           <div class="icon">🌐</div>
           <div>
-            <h3>Galeria Online</h3>
-            <p>Dziel się swoimi autorskimi trasami z całą społecznością, pobieraj mapy stworzone przez innych graczy i oceniaj ich prace!</p>
+            <h3>Multiplayer & Wybór Biomów</h3>
+            <p>Host pokoju w lobby sieciowym wybiera teraz bezpośrednio <b>Biom rozgrywki</b> zamiast numeru poziomu. Zmiana ta znacząco poprawia czytelność GUI i pozwala grać na ulubionych widokach.</p>
           </div>
         </div>
 
         <div class="changelog-card">
-          <div class="icon">🏎️</div>
+          <div class="icon">🎨</div>
           <div>
-            <h3>Otwarte pokoje Multiplayer</h3>
-            <p>Chcesz pograć z kimś w sieci, ale nie masz akurat kodów? Twórz publiczne pokoje lub dołączaj do istniejących jednym kliknięciem.</p>
-          </div>
-        </div>
-
-        <div class="changelog-card">
-          <div class="icon">♾️</div>
-          <div>
-            <h3>Nieskończona lista poziomów</h3>
-            <p>Usunięto dawny limit 10 slotów. Nowy dynamiczny system pozwala tworzyć i zapisywać tyle map, ile pomieści pamięć Twojego telefonu.</p>
-          </div>
-        </div>
-
-        <div class="changelog-card">
-          <div class="icon">🛡️</div>
-          <div>
-            <h3>System antykradzieżowy map</h3>
-            <p>Wbudowane zabezpieczenie w plikach map chroni Twoje autorstwo – nikt nie opublikuje Twojego projektu jako własnego.</p>
+            <h3>Zmiany Wizualne & Ustawienia</h3>
+            <p>Odświeżona oprawa i nowe funkcje w menu:</p>
+            <ul>
+              <li>Bardziej dynamiczne tło menu zawierające nowy neonowy biom.</li>
+              <li>Tytuł gry został podniesiony wyżej i nie chowa się pod przyciskiem "Graj".</li>
+              <li>Dodano napis <i>"Environment Update"</i> pod logo oraz numer wersji na dole Ustawień.</li>
+              <li><b>Przycisk Resetu Postępu:</b> w ustawieniach dodano opcję resetu monet, aut i ulepszeń (dane konta, wygrane, znajomi oraz stworzone mapy pozostają bezpieczne!).</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -355,8 +445,8 @@
       <div class="dl">
         <div>
           <h3>Plik do pobrania</h3>
-          <a class="btn gold big" id="apk" href="https://github.com/Pokrzywwaa/Turbo-Auta/releases/latest/download/release.apk" download>POBIERZ APK</a>
-          <p class="meta">Wersja 1.1 &middot; plik: release.apk</p>
+          <a class="btn gold big" id="apk" href="https://github.com/Pokrzywwaa/Turbo-Auta/releases/latest/download/release.apk" download>POBIERZ APK v1.2</a>
+          <p class="meta">Wersja 1.2 (Environment Update) &middot; plik: release.apk</p>
         </div>
         <div>
           <h3>Jak zainstalować</h3>
@@ -378,12 +468,14 @@
 
 <script>
 (function () {
-  // ---- światy (kolory z gry) ----
+  // ---- światy (15 biomów z uwzględnieniem 4 nowych z v1.2) ----
   var worlds = [
     ["Zielona łąka", "#7cb342"], ["Gorąca pustynia", "#e3c26b"], ["Śnieżna zima", "#eef4f8"],
     ["Mroczne bagna", "#5f7a45"], ["Wulkan", "#8a7d7d"], ["Jesienny las", "#a68b4b"],
     ["Wiśniowy las", "#b8d8a0"], ["Sawanna", "#c9b458"], ["Dżungla", "#4f9a55"],
-    ["Cukrowa kraina", "#f8bbd9"], ["Księżyc", "#9e9e9e"]
+    ["Cukrowa kraina", "#f8bbd9"], ["Księżyc", "#9e9e9e"],
+    ["Tropikalna plaża", "#26c6da"], ["Czerwony kanion", "#d84315"],
+    ["Neonowa noc", "#ab47bc"], ["Grzybowy las", "#7e57c2"]
   ];
   var ul = document.getElementById("worlds");
   worlds.forEach(function (w) {
